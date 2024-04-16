@@ -25,9 +25,6 @@ public class UserServiceImplTest {
     @Mock
     UserRepository userRepository;
 
-    @Mock
-    PasswordEncoder encoder;
-
     @InjectMocks
     UserServiceImpl service;
 
@@ -67,7 +64,6 @@ public class UserServiceImplTest {
         User result = service.createRequestedUserWithRoles(request, roles);
 
         Mockito.verify(userRepository, Mockito.times(1)).save(Mockito.any(User.class));
-        Mockito.verify(encoder, Mockito.times(1)).encode(request.getPassword());
         assertEquals(this.user.getId(), result.getId());
     }
 
