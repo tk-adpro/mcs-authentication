@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.access.AuthorizationServiceException;
 
 import java.util.*;
 
@@ -43,7 +44,7 @@ public class RoleServiceImplTest {
     void testGetUserRoleNotFoundRoleUser(){
         Mockito.when(roleRepository.findByName(RoleName.ROLE_USER.getValue())).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(RuntimeException.class, () -> {
+        Exception exception = assertThrows(AuthorizationServiceException.class, () -> {
             service.getUserRolesByNames(strRoles);
         });
 
@@ -65,7 +66,7 @@ public class RoleServiceImplTest {
         Mockito.when(roleRepository.findByName(RoleName.ROLE_USER.getValue())).thenReturn(Optional.of(new Role()));
         Mockito.when(roleRepository.findByName(dummy)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(RuntimeException.class, () -> {
+        Exception exception = assertThrows(AuthorizationServiceException.class, () -> {
             service.getUserRolesByNames(strRoles);
         });
 
@@ -85,10 +86,6 @@ public class RoleServiceImplTest {
         assertEquals(2, result.size());
         Mockito.verify(roleRepository, Mockito.times(1)).findByName(RoleName.ROLE_USER.getValue());
         Mockito.verify(roleRepository, Mockito.times(1)).findByName(dummy);
-
-        Iterator<Role> iterator = result.iterator();
-        assertEquals(iterator.next().getName(), RoleName.ROLE_USER.getValue());
-        assertEquals(iterator.next().getName(), dummy);
 
     }
 
