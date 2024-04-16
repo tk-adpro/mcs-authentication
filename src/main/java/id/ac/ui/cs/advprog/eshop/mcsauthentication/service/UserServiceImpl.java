@@ -14,10 +14,6 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService{
 
-
-    @Autowired
-    PasswordEncoder encoder;
-
     @Autowired
     UserRepository userRepository;
 
@@ -26,7 +22,7 @@ public class UserServiceImpl implements UserService{
         User user = new User(
                 signupRequest.getUsername(),
                 signupRequest.getEmail(),
-                encoder.encode(signupRequest.getPassword()),
+                signupRequest.getPassword(),
                 signupRequest.getFirstName(),
                 signupRequest.getLastName(),
                 signupRequest.getDob());
