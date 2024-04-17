@@ -96,6 +96,7 @@ afterEvaluate {
         }))
         reports {
             xml.required = true
+            html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
         }
     }
 }
