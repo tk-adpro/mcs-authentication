@@ -178,8 +178,15 @@ public class AuthServiceImplTest {
     @Test
     void testCheckTokenNoPermission(){
         Mockito.when(jwtUtils.validateJwtToken(tokenRequest.getToken())).thenReturn(true);
-        Mockito.when(jwtUtils.getUserNameFromJwtToken(tokenRequest.getToken())).thenReturn(user.getUsername());
-        Mockito.when(roleService.hasPermissionByMenuUrlAndUsername(tokenRequest.getUrl(), user.getUsername())).thenReturn(false);
+        Mockito.when(jwtUtils.getUserNameFromJwtToken(tokenRequest.getToken())).thenReturn(null);
+
+        assertEquals(unauthorized, service.checkToken(tokenRequest).getMessage());
+    }
+
+    @Test
+    void testCheckTokenInvalidUsername(){
+        Mockito.when(jwtUtils.validateJwtToken(tokenRequest.getToken())).thenReturn(true);
+        Mockito.when(jwtUtils.getUserNameFromJwtToken(tokenRequest.getToken())).thenReturn("");
 
         assertEquals(unauthorized, service.checkToken(tokenRequest).getMessage());
     }
@@ -188,7 +195,6 @@ public class AuthServiceImplTest {
     void testCheckTokenException(){
         Mockito.when(jwtUtils.validateJwtToken(tokenRequest.getToken())).thenReturn(true);
         Mockito.when(jwtUtils.getUserNameFromJwtToken(tokenRequest.getToken())).thenReturn(user.getUsername());
-        Mockito.when(roleService.hasPermissionByMenuUrlAndUsername(tokenRequest.getUrl(), user.getUsername())).thenReturn(true);
         Mockito.when(userDetailsService.loadUserByUsername(user.getUsername())).thenThrow(UsernameNotFoundException.class);
 
         assertEquals(unauthorized, service.checkToken(tokenRequest).getMessage());
@@ -199,7 +205,6 @@ public class AuthServiceImplTest {
 
         Mockito.when(jwtUtils.validateJwtToken(tokenRequest.getToken())).thenReturn(true);
         Mockito.when(jwtUtils.getUserNameFromJwtToken(tokenRequest.getToken())).thenReturn(user.getUsername());
-        Mockito.when(roleService.hasPermissionByMenuUrlAndUsername(tokenRequest.getUrl(), user.getUsername())).thenReturn(true);
         Mockito.when(userDetailsService.loadUserByUsername(user.getUsername())).thenReturn(UserDetailsImpl.build(user));
 
         assertEquals("Token validation success.", service.checkToken(tokenRequest).getMessage());
