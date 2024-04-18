@@ -143,7 +143,7 @@ public class AuthServiceImpl implements AuthService {
             if (jwtUtils.validateJwtToken(token)) {
                 String username = jwtUtils.getUserNameFromJwtToken(token);
 
-                if (roleService.hasPermissionByMenuUrlAndUsername(menuUrl, username)){
+                if (username != null && !username.isBlank()){
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(
