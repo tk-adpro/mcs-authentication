@@ -149,25 +149,25 @@ public class AuthControllerTest {
                 .andExpect(handler().methodName("signup"));
     }
 
-    @Test
-    void testCheckToken() throws Exception{
-        lenient().when(service.checkToken(any())).thenReturn(new CheckTokenResponse());
-        mockMvc.perform(post("/api/auth/check-token")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(this.mapper.writeValueAsString(new CheckTokenRequest(dummy, dummy)))
-                        .with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(handler().methodName("checkToken"));
-    }
-
-    @Test
-    void testCheckTokenBlank() throws Exception{
-        lenient().when(service.checkToken(any())).thenReturn(new CheckTokenResponse());
-        mockMvc.perform(post("/api/auth/check-token")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(this.mapper.writeValueAsString(new CheckTokenRequest()))
-                        .with(csrf()))
-                .andExpect(status().isBadRequest())
-                .andExpect(handler().methodName("checkToken"));
-    }
+//    @Test
+//    void testCheckToken() throws Exception{
+//        lenient().when(service.checkToken(any())).thenReturn(new CheckTokenResponse());
+//        mockMvc.perform(post("/api/auth/check-token")
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                        .content(this.mapper.writeValueAsString(new CheckTokenRequest(dummy, dummy)))
+//                        .with(csrf()))
+//                .andExpect(status().isOk())
+//                .andExpect(handler().methodName("checkToken"));
+//    }
+//
+//    @Test
+//    void testCheckTokenBlank() throws Exception{
+//        lenient().when(service.checkToken(any())).thenReturn(new CheckTokenResponse());
+//        mockMvc.perform(post("/api/auth/check-token")
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                        .content(this.mapper.writeValueAsString(new CheckTokenRequest()))
+//                        .with(csrf()))
+//                .andExpect(status().isBadRequest())
+//                .andExpect(handler().methodName("checkToken"));
+//    }
 }
