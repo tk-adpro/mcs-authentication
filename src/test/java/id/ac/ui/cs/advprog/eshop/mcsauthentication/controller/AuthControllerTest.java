@@ -9,6 +9,9 @@ import id.ac.ui.cs.advprog.eshop.mcsauthentication.service.AuthService;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.service.AuthServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -40,7 +43,7 @@ public class AuthControllerTest {
 
     private MockMvc mockMvc;
 
-    @MockBean
+    @Mock
     AuthService service;
 
     Map<String, Object> responseMap;
@@ -53,12 +56,16 @@ public class AuthControllerTest {
 
     SignupRequest signupRequest;
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
+    @InjectMocks
+    private AuthController controller;
+
+//    @Autowired
+//    private WebApplicationContext webApplicationContext;
 
     @BeforeEach
     void setUp(){
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        MockitoAnnotations.initMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         responseMap = new HashMap<>();
         responseMap.put("status", HttpStatus.OK);
@@ -149,25 +156,25 @@ public class AuthControllerTest {
                 .andExpect(handler().methodName("signup"));
     }
 
-//    @Test
-//    void testCheckToken() throws Exception{
-//        lenient().when(service.checkToken(any())).thenReturn(new CheckTokenResponse());
-//        mockMvc.perform(post("/api/auth/check-token")
-//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                        .content(this.mapper.writeValueAsString(new CheckTokenRequest(dummy, dummy)))
-//                        .with(csrf()))
-//                .andExpect(status().isOk())
-//                .andExpect(handler().methodName("checkToken"));
-//    }
-//
-//    @Test
-//    void testCheckTokenBlank() throws Exception{
-//        lenient().when(service.checkToken(any())).thenReturn(new CheckTokenResponse());
-//        mockMvc.perform(post("/api/auth/check-token")
-//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                        .content(this.mapper.writeValueAsString(new CheckTokenRequest()))
-//                        .with(csrf()))
-//                .andExpect(status().isBadRequest())
-//                .andExpect(handler().methodName("checkToken"));
-//    }
+    @Test
+    void testCheckToken() throws Exception{
+        lenient().when(service.checkToken(any())).thenReturn(new CheckTokenResponse());
+        mockMvc.perform(post("/api/auth/check-token")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(this.mapper.writeValueAsString(new CheckTokenRequest(dummy, dummy)))
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(handler().methodName("checkToken"));
+    }
+
+    @Test
+    void testCheckTokenBlank() throws Exception{
+        lenient().when(service.checkToken(any())).thenReturn(new CheckTokenResponse());
+        mockMvc.perform(post("/api/auth/check-token")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(this.mapper.writeValueAsString(new CheckTokenRequest()))
+                        .with(csrf()))
+                .andExpect(status().isBadRequest())
+                .andExpect(handler().methodName("checkToken"));
+    }
 }
