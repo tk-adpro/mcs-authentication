@@ -84,7 +84,7 @@ public class AuthServiceImplTest {
         signupRequest.setLastName(dummy);
         signupRequest.setDob(new Date());
 
-        tokenRequest = new CheckTokenRequest(dummy, dummy);
+        tokenRequest = new CheckTokenRequest(dummy);
     }
 
     @Test
