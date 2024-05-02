@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.eshop.mcsauthentication.service;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.request.CheckTokenRequest;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.request.LoginRequest;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.request.SignupRequest;
+import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.response.AuthInfo;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.response.CheckTokenResponse;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.response.LoginResponse;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.response.MessageResponse;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -144,12 +146,16 @@ public class AuthServiceImpl implements AuthService {
 
                 if (username != null && !username.isBlank()){
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                    UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(
-                                    userDetails,
-                                    null,
-                                    userDetails.getAuthorities());
-                    response.setData(authentication);
+                    List<String> authorities = userDetails.getAuthorities()
+                            .stream()
+                            .map(GrantedAuthority::getAuthority)
+                            .toList();
+                    UserDetailsImpl details = (UserDetailsImpl) userDetails;
+                    AuthInfo authInfo = new AuthInfo();
+                    authInfo.setId(details.getId());
+                    authInfo.setEmail(details.getEmail());
+                    authInfo.setAuthorities(authorities);
+                    response.setData(authInfo);
                     response.setMessage("Token validation success.");
                     log.info("Token validation success.");
                 }
