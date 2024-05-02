@@ -154,6 +154,7 @@ public class AuthServiceImpl implements AuthService {
                     AuthInfo authInfo = new AuthInfo();
                     authInfo.setId(details.getId());
                     authInfo.setEmail(details.getEmail());
+                    authInfo.setUsername(username);
                     authInfo.setAuthorities(authorities);
                     response.setData(authInfo);
                     response.setMessage("Token validation success.");
