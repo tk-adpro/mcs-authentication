@@ -21,7 +21,6 @@ public class CheckTokenRequestTest {
     void setUp(){
         CheckTokenRequest request1 = new CheckTokenRequest();
         request1.setToken("token1");
-        request1.setUrl("/test/all");
 
         requests = new ArrayList<>();
         requests.add(request1);
@@ -35,28 +34,22 @@ public class CheckTokenRequestTest {
 
         CheckTokenRequest newRequest = new CheckTokenRequest();
         newRequest.setToken(request.getToken());
-        newRequest.setUrl(request.getUrl());
 
-        assertArrayEquals(new String[]{request.getToken(), request.getUrl()},
-                new String[]{newRequest.getToken(), newRequest.getUrl()}
-        );
+        assertEquals(request.getToken(), newRequest.getToken());
     }
 
     @Test
     void testAllArgsCons(){
         CheckTokenRequest request = requests.getFirst();
 
-        CheckTokenRequest newRequest = new CheckTokenRequest(request.getToken(), request.getUrl());
+        CheckTokenRequest newRequest = new CheckTokenRequest(request.getToken());
 
-        assertArrayEquals(new String[]{request.getToken(), request.getUrl()},
-                new String[]{newRequest.getToken(), newRequest.getUrl()}
-        );
+        assertEquals(request.getToken(), newRequest.getToken());
     }
 
     @Test
     void testBlankToken(){
         CheckTokenRequest request = new CheckTokenRequest();
-        request.setUrl(dummy);
 
         var violations  = validator.validate(request);
         assertFalse(violations.isEmpty());
@@ -67,17 +60,4 @@ public class CheckTokenRequestTest {
         assertFalse(violations.isEmpty());
     }
 
-    @Test
-    void testBlankUrl(){
-        CheckTokenRequest request = new CheckTokenRequest();
-        request.setToken(dummy);
-
-        var violations  = validator.validate(request);
-        assertFalse(violations.isEmpty());
-
-        request.setUrl("");
-
-        violations  = validator.validate(request);
-        assertFalse(violations.isEmpty());
-    }
 }

@@ -137,7 +137,6 @@ public class AuthServiceImpl implements AuthService {
         response.setMessage("Unauthorized access.");
 
         String token = request.getToken();
-        String menuUrl = request.getUrl();
 
         try {
             if (jwtUtils.validateJwtToken(token)) {

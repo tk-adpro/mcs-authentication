@@ -13,6 +13,4 @@ import lombok.Setter;
 public class CheckTokenRequest {
     @NotBlank
     private String token;
-    @NotBlank
-    private String url;
 }

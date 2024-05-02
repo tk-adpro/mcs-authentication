@@ -91,6 +91,8 @@ afterEvaluate {
         dependsOn(tasks.test)
         classDirectories.setFrom(files(classDirectories.files.map {
             fileTree(it) {
+                exclude("**/config/**")
+                exclude("**/utils/**")
                 exclude("**/McsAuthenticationApplication.class")
             }
         }))

@@ -154,7 +154,7 @@ public class AuthControllerTest {
         lenient().when(service.checkToken(any())).thenReturn(new CheckTokenResponse());
         mockMvc.perform(post("/api/auth/check-token")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(this.mapper.writeValueAsString(new CheckTokenRequest(dummy, dummy)))
+                        .content(this.mapper.writeValueAsString(new CheckTokenRequest(dummy)))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("checkToken"));
