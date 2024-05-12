@@ -7,7 +7,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CheckTokenResponseTest {
+class CheckTokenResponseTest {
 
     private String dummy = "DUMMY";
 

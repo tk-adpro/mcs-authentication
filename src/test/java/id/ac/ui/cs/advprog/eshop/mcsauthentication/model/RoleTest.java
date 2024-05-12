@@ -8,7 +8,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RoleTest {
+class RoleTest {
 
     private List<Role> roles;
 

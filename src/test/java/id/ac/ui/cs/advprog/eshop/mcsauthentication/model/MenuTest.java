@@ -1,6 +1,5 @@
 package id.ac.ui.cs.advprog.eshop.mcsauthentication.model;
 
-import id.ac.ui.cs.advprog.eshop.mcsauthentication.enums.RoleName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +7,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MenuTest {
+class MenuTest {
 
     private List<Menu> menus;
 

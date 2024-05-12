@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserDetailsImplTest {
+class UserDetailsImplTest {
     private List<User> users;
 
     private Set<Role> roles;
