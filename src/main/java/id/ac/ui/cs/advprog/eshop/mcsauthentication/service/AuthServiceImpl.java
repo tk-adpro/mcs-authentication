@@ -51,6 +51,10 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    private final String DATA = "data";
+
+    private final String STATUS = "status";
+
     @Override
     public Map<String, Object> login(LoginRequest loginRequest) {
         Map<String, Object> responseMap = new HashMap<>();
@@ -64,7 +68,7 @@ public class AuthServiceImpl implements AuthService {
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
             List<String> roles = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
-                    .collect(Collectors.toList());
+                    .toList();
 
             LoginResponse response = new LoginResponse();
             response.setToken(jwt);
@@ -73,12 +77,12 @@ public class AuthServiceImpl implements AuthService {
             response.setEmail(userDetails.getEmail());
             response.setRoles(roles);
 
-            responseMap.put("status", HttpStatus.OK);
-            responseMap.put("data", response);
+            responseMap.put(STATUS, HttpStatus.OK);
+            responseMap.put(DATA, response);
         } catch (Exception e){
             MessageResponse response = new MessageResponse("Login failed. Please try again.");
-            responseMap.put("status", HttpStatus.UNAUTHORIZED);
-            responseMap.put("data", response);
+            responseMap.put(STATUS, HttpStatus.UNAUTHORIZED);
+            responseMap.put(DATA, response);
         }
 
         return responseMap;
@@ -112,8 +116,8 @@ public class AuthServiceImpl implements AuthService {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        response.put("data", message);
-        response.put("status", status);
+        response.put(DATA, message);
+        response.put(STATUS, status);
 
         return response;
     }

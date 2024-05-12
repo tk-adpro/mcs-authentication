@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.eshop.mcsauthentication.controller;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.request.CheckTokenRequest;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.request.LoginRequest;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.request.SignupRequest;
+import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.response.CheckTokenResponse;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.response.MessageResponse;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.service.AuthService;
 import jakarta.validation.Valid;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 @Log4j2
@@ -25,7 +24,7 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Object> login(@Valid @RequestBody LoginRequest loginRequest) {
         Map<String, Object> responseMap = authService.login(loginRequest);
         Object data = responseMap.get("data");
         HttpStatus status = (HttpStatus) responseMap.get("status");
@@ -42,7 +41,7 @@ public class AuthController {
 
 
     @PostMapping("/check-token")
-    public ResponseEntity<?> checkToken(@Valid @RequestBody CheckTokenRequest request){
+    public ResponseEntity<CheckTokenResponse> checkToken(@Valid @RequestBody CheckTokenRequest request){
         return ResponseEntity.ok(authService.checkToken(request));
     }
 }

@@ -81,6 +81,7 @@ class UserDetailsImplTest {
         assertEquals(authorities, userDetails.getAuthorities());
     }
 
+    @SuppressWarnings({"squid:S5785", "squid:S5785"})
     @Test
     void testConstructor(){
         User user = this.users.getFirst();
