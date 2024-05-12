@@ -10,6 +10,7 @@ import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.response.MessageResponse;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.model.Role;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.model.User;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.model.UserDetailsImpl;
+import id.ac.ui.cs.advprog.eshop.mcsauthentication.repository.RoleRepository;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.utils.JwtUtils;
 import lombok.extern.log4j.Log4j2;
 import org.apache.coyote.BadRequestException;
@@ -33,27 +34,33 @@ import java.util.stream.Collectors;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
     AuthenticationManager authenticationManager;
 
-    @Autowired
     PasswordEncoder encoder;
 
-    @Autowired
     UserService userService;
 
-    @Autowired
     RoleService roleService;
 
-    @Autowired
     JwtUtils jwtUtils;
 
-    @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
     private final String DATA = "data";
 
     private final String STATUS = "status";
+
+    @Autowired
+    public AuthServiceImpl(AuthenticationManager authenticationManager, PasswordEncoder encoder,
+                           UserService userService, RoleService roleService, JwtUtils jwtUtils,
+                           UserDetailsServiceImpl userDetailsService){
+        this.authenticationManager = authenticationManager;
+        this.encoder = encoder;
+        this.userService = userService;
+        this.roleService = roleService;
+        this.jwtUtils = jwtUtils;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     public Map<String, Object> login(LoginRequest loginRequest) {

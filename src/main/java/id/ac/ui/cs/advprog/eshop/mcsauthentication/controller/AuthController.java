@@ -20,8 +20,12 @@ import java.util.Map;
 @Log4j2
 public class AuthController {
 
-    @Autowired
     AuthService authService;
+
+    @Autowired
+    public AuthController(AuthService authService){
+        this.authService = authService;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@Valid @RequestBody LoginRequest loginRequest) {

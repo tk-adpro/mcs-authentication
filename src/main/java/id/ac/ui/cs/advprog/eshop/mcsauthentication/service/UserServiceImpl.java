@@ -16,6 +16,10 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserRepository userRepository;
 
+    public UserServiceImpl(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+
     @Override
     public User createRequestedUserWithRoles(SignupRequest signupRequest, Set<Role> roles) {
         User user = new User(
