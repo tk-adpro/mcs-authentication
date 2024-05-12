@@ -61,6 +61,8 @@ public class UserDetailsImplTest {
                 user1.getUsername(),
                 user1.getEmail(),
                 user1.getPassword(),
+                user1.getFirstName(),
+                user1.getLastName(),
                 authorities
         );
     }
@@ -73,6 +75,8 @@ public class UserDetailsImplTest {
         assertEquals(user.getUsername(), userDetails.getUsername());
         assertEquals(user.getEmail(), userDetails.getEmail());
         assertEquals(user.getPassword(), userDetails.getPassword());
+        assertEquals(user.getFirstName(), userDetails.getFirstName());
+        assertEquals(user.getLastName(), userDetails.getLastName());
 
         assertEquals(authorities, userDetails.getAuthorities());
     }
@@ -86,6 +90,8 @@ public class UserDetailsImplTest {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
+                user.getFirstName(),
+                user.getLastName(),
                 authorities
         );
 

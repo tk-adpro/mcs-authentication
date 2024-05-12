@@ -26,6 +26,8 @@ public class AuthInfoTest {
         authInfo.setId(1L);
         authInfo.setEmail(dummy);
         authInfo.setUsername(dummy);
+        authInfo.setFirstName(dummy);
+        authInfo.setLastName(dummy);
         authInfo.setAuthorities(authorities);
     }
 
@@ -35,10 +37,12 @@ public class AuthInfoTest {
         newInfo.setId(authInfo.getId());
         newInfo.setEmail(authInfo.getEmail());
         newInfo.setUsername(authInfo.getUsername());
+        newInfo.setFirstName(authInfo.getFirstName());
+        newInfo.setLastName(authInfo.getLastName());
         newInfo.setAuthorities(authorities);
 
-        assertArrayEquals(new String[]{authInfo.getEmail(), authInfo.getUsername()},
-                new String[]{newInfo.getEmail(), newInfo.getUsername()});
+        assertArrayEquals(new String[]{authInfo.getEmail(), authInfo.getUsername(), authInfo.getFirstName(), authInfo.getLastName()},
+                new String[]{newInfo.getEmail(), newInfo.getUsername(), newInfo.getFirstName(), newInfo.getLastName()});
         assertEquals(authorities, newInfo.getAuthorities());
         assertEquals(authInfo.getId(), newInfo.getId());
     }
