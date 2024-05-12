@@ -10,6 +10,7 @@ import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.response.MessageResponse;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.model.Role;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.model.User;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.model.UserDetailsImpl;
+import id.ac.ui.cs.advprog.eshop.mcsauthentication.repository.RoleRepository;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.utils.JwtUtils;
 import lombok.extern.log4j.Log4j2;
 import org.apache.coyote.BadRequestException;
@@ -33,23 +34,33 @@ import java.util.stream.Collectors;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
     AuthenticationManager authenticationManager;
 
-    @Autowired
     PasswordEncoder encoder;
 
-    @Autowired
     UserService userService;
 
-    @Autowired
     RoleService roleService;
 
-    @Autowired
     JwtUtils jwtUtils;
 
-    @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    private static final String DATA = "data";
+
+    private static final String STATUS = "status";
+
+    @Autowired
+    public AuthServiceImpl(AuthenticationManager authenticationManager, PasswordEncoder encoder,
+                           UserService userService, RoleService roleService, JwtUtils jwtUtils,
+                           UserDetailsServiceImpl userDetailsService){
+        this.authenticationManager = authenticationManager;
+        this.encoder = encoder;
+        this.userService = userService;
+        this.roleService = roleService;
+        this.jwtUtils = jwtUtils;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     public Map<String, Object> login(LoginRequest loginRequest) {
@@ -64,7 +75,7 @@ public class AuthServiceImpl implements AuthService {
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
             List<String> roles = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
-                    .collect(Collectors.toList());
+                    .toList();
 
             LoginResponse response = new LoginResponse();
             response.setToken(jwt);
@@ -73,12 +84,12 @@ public class AuthServiceImpl implements AuthService {
             response.setEmail(userDetails.getEmail());
             response.setRoles(roles);
 
-            responseMap.put("status", HttpStatus.OK);
-            responseMap.put("data", response);
+            responseMap.put(STATUS, HttpStatus.OK);
+            responseMap.put(DATA, response);
         } catch (Exception e){
             MessageResponse response = new MessageResponse("Login failed. Please try again.");
-            responseMap.put("status", HttpStatus.UNAUTHORIZED);
-            responseMap.put("data", response);
+            responseMap.put(STATUS, HttpStatus.UNAUTHORIZED);
+            responseMap.put(DATA, response);
         }
 
         return responseMap;
@@ -112,8 +123,8 @@ public class AuthServiceImpl implements AuthService {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        response.put("data", message);
-        response.put("status", status);
+        response.put(DATA, message);
+        response.put(STATUS, status);
 
         return response;
     }
@@ -155,6 +166,8 @@ public class AuthServiceImpl implements AuthService {
                     authInfo.setId(details.getId());
                     authInfo.setEmail(details.getEmail());
                     authInfo.setUsername(username);
+                    authInfo.setFirstName(details.getFirstName());
+                    authInfo.setLastName(details.getLastName());
                     authInfo.setAuthorities(authorities);
                     response.setData(authInfo);
                     response.setMessage("Token validation success.");

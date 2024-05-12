@@ -4,7 +4,6 @@ import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.request.CheckTokenRequest
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.request.LoginRequest;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.request.SignupRequest;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.response.CheckTokenResponse;
-import id.ac.ui.cs.advprog.eshop.mcsauthentication.dto.response.LoginResponse;
 
 import java.util.Map;
 

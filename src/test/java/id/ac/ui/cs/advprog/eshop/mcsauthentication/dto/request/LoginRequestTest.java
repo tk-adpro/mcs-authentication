@@ -9,7 +9,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LoginRequestTest {
+class LoginRequestTest {
 
     private String dummy = "DUMMY";
 

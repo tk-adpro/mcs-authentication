@@ -6,7 +6,6 @@ import id.ac.ui.cs.advprog.eshop.mcsauthentication.model.User;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -14,8 +13,12 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService{
 
-    @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User createRequestedUserWithRoles(SignupRequest signupRequest, Set<Role> roles) {

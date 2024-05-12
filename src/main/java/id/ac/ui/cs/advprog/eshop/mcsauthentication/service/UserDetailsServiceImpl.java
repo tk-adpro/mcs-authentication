@@ -2,7 +2,6 @@ package id.ac.ui.cs.advprog.eshop.mcsauthentication.service;
 
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.model.User;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.model.UserDetailsImpl;
-import id.ac.ui.cs.advprog.eshop.mcsauthentication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,8 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
     UserService userService;
+
+    @Autowired
+    public UserDetailsServiceImpl(UserService userService){
+        this.userService = userService;
+    }
 
     @Override
     @Transactional

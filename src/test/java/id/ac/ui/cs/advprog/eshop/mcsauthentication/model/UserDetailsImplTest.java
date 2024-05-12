@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserDetailsImplTest {
+class UserDetailsImplTest {
     private List<User> users;
 
     private Set<Role> roles;
@@ -61,6 +61,8 @@ public class UserDetailsImplTest {
                 user1.getUsername(),
                 user1.getEmail(),
                 user1.getPassword(),
+                user1.getFirstName(),
+                user1.getLastName(),
                 authorities
         );
     }
@@ -73,10 +75,13 @@ public class UserDetailsImplTest {
         assertEquals(user.getUsername(), userDetails.getUsername());
         assertEquals(user.getEmail(), userDetails.getEmail());
         assertEquals(user.getPassword(), userDetails.getPassword());
+        assertEquals(user.getFirstName(), userDetails.getFirstName());
+        assertEquals(user.getLastName(), userDetails.getLastName());
 
         assertEquals(authorities, userDetails.getAuthorities());
     }
 
+    @SuppressWarnings({"squid:S5785", "squid:S5785"})
     @Test
     void testConstructor(){
         User user = this.users.getFirst();
@@ -86,6 +91,8 @@ public class UserDetailsImplTest {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
+                user.getFirstName(),
+                user.getLastName(),
                 authorities
         );
 

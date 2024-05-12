@@ -9,7 +9,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CheckTokenRequestTest {
+class CheckTokenRequestTest {
 
     private String dummy = "DUMMY";
 
