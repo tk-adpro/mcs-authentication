@@ -6,7 +6,6 @@ import id.ac.ui.cs.advprog.eshop.mcsauthentication.model.User;
 import id.ac.ui.cs.advprog.eshop.mcsauthentication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
