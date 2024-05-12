@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@SuppressWarnings("squid:S1206")
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
