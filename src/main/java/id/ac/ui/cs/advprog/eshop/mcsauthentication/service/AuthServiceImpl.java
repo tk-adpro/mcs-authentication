@@ -46,9 +46,9 @@ public class AuthServiceImpl implements AuthService {
 
     private UserDetailsServiceImpl userDetailsService;
 
-    private final String DATA = "data";
+    private static final String DATA = "data";
 
-    private final String STATUS = "status";
+    private static final String STATUS = "status";
 
     @Autowired
     public AuthServiceImpl(AuthenticationManager authenticationManager, PasswordEncoder encoder,
