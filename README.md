@@ -138,6 +138,8 @@ Domains in which you can access the endpoints.
     "id": 1, // user id datatype: Long
     "email": "{email}",
     "username": "{username}",
+    "firstName": "{first name}",
+    "lastName": "{last name}",
     "authorities": [
       "ROLE_ADMIN",
       "ROLE_USER"
@@ -239,6 +241,8 @@ public class AuthInfo {
     private Long id;
     private String email;
     private String username;
+    private String firstName;
+    private String lastName;
     private List<String> authorities;
 }
 ```
@@ -418,6 +422,24 @@ public class AuthUtils {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof AuthInfo){
             return ((AuthInfo) principal).getUsername();
+        }
+
+        throw new RuntimeException("User is not authenticated");
+    }
+
+    public static synchronized String getFirstName(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof AuthInfo){
+            return ((AuthInfo) principal).getFirstName();
+        }
+
+        throw new RuntimeException("User is not authenticated");
+    }
+
+    public static synchronized String getLastName(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof AuthInfo){
+            return ((AuthInfo) principal).getLastName();
         }
 
         throw new RuntimeException("User is not authenticated");
