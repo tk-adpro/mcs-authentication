@@ -7,7 +7,7 @@ services:
       - "9090:9090"
     restart : unless-stopped
     volumes:
-      - ./monitoring:/etc
+      - ./monitoring:/etc/prometheus
 
   grafana:
     image: grafana/grafana:9.5.2
